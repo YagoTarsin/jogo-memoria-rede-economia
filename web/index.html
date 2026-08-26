@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Jogo da Memória - Promoções</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<section id="screen-menu" class="screen">
+  <div class="menu-content">
+    <img src="assets/logo.png" alt="Redeconomia" class="logo">
+    <h1 class="title">🛒 Jogo da Memória</h1>
+    <p class="subtitle">Descubra as promoções da semana!</p>
+    <button id="btn-play" class="btn btn-primary btn-huge">▶ Jogar</button>
+    <button id="btn-config" class="btn btn-secondary">⚙ Configurações</button>
+    <p id="menu-info" class="menu-info"></p>
+  </div>
+</section>
+
+<section id="screen-game" class="screen">
+  <header class="game-header">
+    <button id="game-back" class="btn btn-secondary btn-small">← Menu</button>
+    <div id="game-status" class="game-status"></div>
+    <button id="game-restart" class="btn btn-secondary btn-small">⟲ Reiniciar</button>
+  </header>
+  <div id="game-board" class="game-board"></div>
+
+  <div id="victory-modal" class="modal">
+    <div class="modal-content">
+      <h2>🏆 Parabéns! Você encontrou todas as promoções!</h2>
+      <p id="victory-moves"></p>
+      <p id="victory-savings" class="savings"></p>
+      <div class="modal-actions">
+        <button id="victory-again" class="btn btn-primary">Jogar novamente</button>
+        <button id="victory-menu" class="btn btn-secondary">Voltar ao Menu</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screen-config" class="screen">
+  <header class="config-header">
+    <button id="config-back" class="btn btn-secondary btn-small">← Menu</button>
+    <h2>⚙ Configurações</h2>
+    <div class="header-spacer"></div>
+  </header>
+
+  <div id="pin-gate" class="pin-gate">
+    <div class="pin-card">
+      <div class="pin-icon">🔒</div>
+      <p>Digite o PIN de administrador</p>
+      <input id="pin-input" type="password" inputmode="numeric" maxlength="6" class="pin-input" autocomplete="off">
+      <button id="pin-submit" class="btn btn-primary">Entrar</button>
+      <p id="pin-error" class="pin-error"></p>
+      <p class="pin-hint">PIN padrão: 1234 (altere depois de entrar)</p>
+    </div>
+  </div>
+
+  <div id="config-body" class="config-body hidden">
+    <section class="config-card">
+      <h3 id="form-title"><span class="card-icon">🏷️</span>Cadastrar carta</h3>
+      <form id="card-form" class="card-form">
+        <label>Nome</label>
+        <input id="card-name" type="text" required placeholder="Ex.: Café Torrado 500g">
+
+        <label>Preço normal (R$)</label>
+        <input id="card-real-price" type="number" min="0" step="0.01" required>
+
+        <label>Preço promoção (R$)</label>
+        <input id="card-promo-price" type="number" min="0" step="0.01" required>
+
+        <label>Imagem</label>
+        <div class="image-picker">
+          <img id="card-image-preview" class="image-preview hidden" alt="">
+          <label for="card-image" class="btn btn-secondary btn-small file-btn">📷 Escolher imagem</label>
+          <input id="card-image" type="file" accept="image/*" class="hidden">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" id="card-save" class="btn btn-primary">Salvar carta</button>
+          <button type="button" id="card-cancel" class="btn btn-secondary hidden">Cancelar edição</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="config-card">
+      <h3><span class="card-icon">🗂️</span>Cartas cadastradas</h3>
+      <div id="card-list" class="card-list"></div>
+    </section>
+
+    <section class="config-card">
+      <h3><span class="card-icon">🎯</span>Pares por partida</h3>
+      <div class="settings-row">
+        <input id="pairs-input" type="number" min="2" max="2" class="pairs-input">
+        <button id="pairs-save" class="btn btn-primary btn-small">Salvar</button>
+      </div>
+    </section>
+
+    <section class="config-card">
+      <h3><span class="card-icon">🔑</span>Alterar PIN de administrador</h3>
+      <div class="settings-row">
+        <input id="pin-new" type="password" inputmode="numeric" maxlength="6" class="pin-input-inline" placeholder="Novo PIN (4-6 dígitos)">
+        <button id="pin-save" class="btn btn-secondary btn-small">Salvar</button>
+      </div>
+    </section>
+  </div>
+</section>
+
+<script src="js/db.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/game.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
