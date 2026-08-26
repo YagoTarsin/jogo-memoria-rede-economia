@@ -4,12 +4,27 @@ const Config = (() => {
   let selectedImageData = null;
   let existingImageData = null;
 
+  function applyMoneyMask(input) {
+    input.addEventListener('input', () => {
+      const digits = input.value.replace(/\D/g, '');
+      const cents = parseInt(digits || '0', 10);
+      const formatted = (cents / 100).toFixed(2).replace('.', ',');
+      input.value = formatted;
+    });
+  }
+
+  function parseMoneyInput(input) {
+    return parseFloat(input.value.replace(',', '.')) || 0;
+  }
+
   function init() {
     document.getElementById('config-back').addEventListener('click', () => App.showScreen('menu'));
     document.getElementById('pin-submit').addEventListener('click', submitPin);
     document.getElementById('pin-input').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') submitPin();
     });
+    applyMoneyMask(document.getElementById('card-real-price'));
+    applyMoneyMask(document.getElementById('card-promo-price'));
     document.getElementById('card-image').addEventListener('change', onImageSelected);
     document.getElementById('card-form').addEventListener('submit', onSaveCard);
     document.getElementById('card-cancel').addEventListener('click', resetForm);
@@ -117,8 +132,8 @@ const Config = (() => {
     existingImageData = card.imageData;
     selectedImageData = null;
     document.getElementById('card-name').value = card.name;
-    document.getElementById('card-real-price').value = card.realPrice;
-    document.getElementById('card-promo-price').value = card.promoPrice;
+    document.getElementById('card-real-price').value = Number(card.realPrice).toFixed(2).replace('.', ',');
+    document.getElementById('card-promo-price').value = Number(card.promoPrice).toFixed(2).replace('.', ',');
 
     const preview = document.getElementById('card-image-preview');
     preview.src = card.imageData;
@@ -139,8 +154,8 @@ const Config = (() => {
   async function onSaveCard(event) {
     event.preventDefault();
     const name = document.getElementById('card-name').value.trim();
-    const realPrice = Number(document.getElementById('card-real-price').value);
-    const promoPrice = Number(document.getElementById('card-promo-price').value);
+    const realPrice = parseMoneyInput(document.getElementById('card-real-price'));
+    const promoPrice = parseMoneyInput(document.getElementById('card-promo-price'));
 
     if (!name) {
       alert('Informe o nome do produto.');

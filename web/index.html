@@ -15,8 +15,8 @@
 <section id="screen-menu" class="screen">
   <div class="menu-content">
     <img src="assets/logo.png" alt="Redeconomia" class="logo">
-    <h1 class="title">🛒 Jogo da Memória</h1>
-    <p class="subtitle">Descubra as promoções da semana!</p>
+    <h1 class="title">Memória da Economia</h1>
+    <p class="subtitle">Sua memória vale desconto!</p>
     <button id="btn-play" class="btn btn-primary btn-huge">▶ Jogar</button>
     <button id="btn-config" class="btn btn-secondary">⚙ Configurações</button>
     <p id="menu-info" class="menu-info"></p>
@@ -83,10 +83,10 @@
         <input id="card-name" type="text" required placeholder="Ex.: Café Torrado 500g">
 
         <label>Preço normal (R$)</label>
-        <input id="card-real-price" type="number" min="0" step="0.01" required>
+        <input id="card-real-price" type="text" inputmode="decimal" placeholder="0,00" required>
 
         <label>Preço promoção (R$)</label>
-        <input id="card-promo-price" type="number" min="0" step="0.01" required>
+        <input id="card-promo-price" type="text" inputmode="decimal" placeholder="0,00" required>
 
         <label>Imagem</label>
         <div class="image-picker">

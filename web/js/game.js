@@ -64,7 +64,8 @@ const Game = (() => {
   function renderBoard(deck) {
     const board = boardEl();
     board.innerHTML = '';
-    const cols = Math.max(2, Math.min(Math.ceil(Math.sqrt(deck.length * 1.6)), 8));
+    const maxCols = window.innerWidth <= 480 ? 4 : 8;
+    const cols = Math.max(2, Math.min(Math.ceil(Math.sqrt(deck.length * 1.6)), maxCols));
     board.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
     deck.forEach((card) => {

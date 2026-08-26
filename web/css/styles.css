@@ -750,3 +750,74 @@ button, input {
   margin-top: 18px;
   flex-wrap: wrap;
 }
+
+/* ---------- responsive mobile ---------- */
+@media (max-width: 480px) {
+  .screen {
+    padding: 12px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+
+  .btn-huge {
+    font-size: 20px;
+    min-width: 200px;
+    padding: 18px 28px;
+  }
+
+  .logo {
+    max-width: 180px;
+    max-height: 180px;
+  }
+
+  .game-header {
+    margin-bottom: 10px;
+    gap: 6px;
+  }
+
+  .game-status {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .btn-small {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .game-board {
+    gap: 8px;
+  }
+
+  .card-name {
+    font-size: 10px;
+  }
+
+  .card-price {
+    font-size: 10px;
+  }
+
+  .reveal-card {
+    padding: 24px 18px;
+    gap: 8px;
+  }
+
+  .reveal-card img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .reveal-new-price {
+    font-size: 30px;
+  }
+
+  .config-card {
+    padding: 14px;
+  }
+}
