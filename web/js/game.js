@@ -6,6 +6,8 @@ const Game = (() => {
   let totalPairs = 0;
   let moves = 0;
   let foundCards = [];
+  let revealSettled = true;
+  let revealDone = null;
 
   function boardEl() {
     return document.getElementById('game-board');
@@ -29,6 +31,7 @@ const Game = (() => {
       hideVictory();
       App.showScreen('menu');
     });
+    document.getElementById('reveal-ok').addEventListener('click', finishReveal);
   }
 
   async function startNewGame() {
@@ -74,10 +77,6 @@ const Game = (() => {
             <div class="card-image-wrap"><img src="${card.imageData}" alt=""></div>
             <div class="card-name">${escapeHtml(card.name)}</div>
             <div class="card-price"></div>
-            <div class="treasure-overlay">
-              <span class="treasure-icon">🎁</span>
-              <span>Promoção encontrada!</span>
-            </div>
           </div>
         </div>
       `;
@@ -112,9 +111,7 @@ const Game = (() => {
 
   function resolveSelection() {
     if (firstCard.card.id === secondCard.card.id) {
-      firstCard.el.classList.add('treasure');
-      secondCard.el.classList.add('treasure');
-      setTimeout(() => revealMatch(firstCard, secondCard), 550);
+      playMatchReveal(firstCard.card, () => finalizeMatch(firstCard, secondCard));
     } else {
       firstCard.el.classList.remove('flipped');
       secondCard.el.classList.remove('flipped');
@@ -124,9 +121,8 @@ const Game = (() => {
     }
   }
 
-  function revealMatch(first, second) {
+  function finalizeMatch(first, second) {
     [first, second].forEach(({ el, card }) => {
-      el.classList.remove('treasure');
       el.classList.add('matched');
       el.querySelector('.card-price').textContent =
         `De ${formatCurrency(card.realPrice)}\npor ${formatCurrency(card.promoPrice)}`;
@@ -142,6 +138,35 @@ const Game = (() => {
     if (matchedCount === totalPairs) {
       setTimeout(showVictory, 500);
     }
+  }
+
+  function playMatchReveal(card, onDone) {
+    const overlay = document.getElementById('match-reveal');
+
+    document.getElementById('reveal-image').src = card.imageData;
+    document.getElementById('reveal-name').textContent = card.name;
+    document.getElementById('reveal-old-price').textContent = formatCurrency(card.realPrice);
+    document.getElementById('reveal-new-price').textContent = formatCurrency(card.promoPrice);
+    document.getElementById('reveal-savings').textContent =
+      `Você economiza ${formatCurrency(card.realPrice - card.promoPrice)}`;
+
+    revealSettled = false;
+    revealDone = onDone;
+    overlay.classList.add('active');
+    requestAnimationFrame(() => overlay.classList.add('show'));
+  }
+
+  function finishReveal() {
+    if (revealSettled) return;
+    revealSettled = true;
+
+    const overlay = document.getElementById('match-reveal');
+    overlay.classList.remove('show');
+    setTimeout(() => overlay.classList.remove('active'), 250);
+
+    const done = revealDone;
+    revealDone = null;
+    if (done) done();
   }
 
   function updateStatus() {

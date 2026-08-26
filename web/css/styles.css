@@ -335,33 +335,109 @@ button, input {
   pointer-events: none;
 }
 
-.treasure-overlay {
-  position: absolute;
-  inset: 0;
+/* ---------- match reveal (grow-in reward card) ---------- */
+.match-reveal {
   display: none;
-  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: linear-gradient(135deg, var(--yellow), #ffd400);
-  border-radius: var(--radius-md);
-  color: var(--red-dark);
-  font-weight: 700;
-  font-size: 13px;
+  background: rgba(0, 0, 0, 0.6);
 }
 
-.treasure-icon {
-  font-size: 40px;
-}
-
-.card.treasure .treasure-overlay {
+.match-reveal.active {
   display: flex;
-  animation: pop 0.35s ease;
 }
 
-@keyframes pop {
-  from { transform: scale(0.5); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+.reveal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 36px 30px;
+  max-width: 320px;
+  width: 88%;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: scale(0.35);
+  transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.match-reveal.show .reveal-card {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reveal-card img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.reveal-name {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--green);
+  text-align: center;
+}
+
+.reveal-prices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.reveal-old-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s;
+}
+
+.match-reveal.show .reveal-old-price {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-new-price {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.28s,
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.28s;
+}
+
+.match-reveal.show .reveal-new-price {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.reveal-savings {
+  margin-top: 6px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--green-soft);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease 0.45s, transform 0.3s ease 0.45s;
+}
+
+.match-reveal.show .reveal-savings {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ---------- victory modal ---------- */
