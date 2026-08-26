@@ -14,8 +14,9 @@
   --panel: #ffffff;
   --panel-border: #eef1ef;
   --row-bg: #fbfdfb;
-  --card-back-start: var(--red);
-  --card-back-end: var(--red-dark);
+  --green-darker: #0a3d1d;
+  --card-back-start: var(--green);
+  --card-back-end: var(--green-dark);
 
   --radius-sm: 10px;
   --radius-md: 16px;
@@ -74,12 +75,14 @@ button, input {
 }
 
 #screen-menu {
-  background:
-    radial-gradient(circle at 50% 0%, rgba(21, 128, 61, 0.08), transparent 55%),
-    radial-gradient(circle at 50% 100%, rgba(179, 4, 4, 0.08), transparent 55%),
-    var(--bg);
+  background: linear-gradient(
+    180deg,
+    rgba(21, 128, 61, 0.12) 0%,
+    #ffffff 45%,
+    #ffffff 55%,
+    rgba(179, 4, 4, 0.12) 100%
+  );
   color: var(--green);
-  position: relative;
 }
 
 /* ---------- buttons ---------- */
@@ -268,10 +271,11 @@ button, input {
 }
 
 .card-back {
-  background: linear-gradient(135deg, var(--card-back-start), var(--card-back-end));
-  border: 3px solid var(--red-darker);
-  color: #ffffff;
-  font-size: 42px;
+  background-image: url('../assets/carta-verso.png'), linear-gradient(135deg, var(--card-back-start), var(--card-back-end));
+  background-size: 88%, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  border: 3px solid var(--green-darker);
   box-shadow: var(--shadow-sm);
 }
 

@@ -69,7 +69,7 @@ const Game = (() => {
       el.className = 'card';
       el.innerHTML = `
         <div class="card-inner">
-          <div class="card-face card-back">🛒</div>
+          <div class="card-face card-back"></div>
           <div class="card-face card-front">
             <div class="card-image-wrap"><img src="${card.imageData}" alt=""></div>
             <div class="card-name">${escapeHtml(card.name)}</div>
